@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using FluentValidation;
 using StoreSystem.Business.Abstract;
+using StoreSystem.Business.ValidationRules;
 using StoreSystem.Business.ValidationRules.FluentValidation;
 using StoreSystem.DataAcccesLayer.Abstract;
 using StoreSystem.DataAcccesLayer.Concrete.EntityFramework;
@@ -30,6 +31,9 @@ namespace StoreSystem.Business.Concrete
             }
 
             return validateResult.IsValid ? "Success" : validateResult.Errors.First().ErrorMessage;
+            ;
+            // throw new ValidationException(validateResult.Errors);
+
         }
 
 

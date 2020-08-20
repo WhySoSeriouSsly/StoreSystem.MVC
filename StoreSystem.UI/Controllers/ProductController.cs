@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using StoreSystem.Business.Abstract;
 using StoreSystem.Entities.Concrete;
 using StoreSystem.UI.Models;
@@ -47,15 +48,16 @@ namespace StoreSystem.UI.Controllers
 
             var result = _productService.Add(product);
 
-            if (result==Messages.SuccessValidation)
+            if (result == Messages.Success)
             {
-                TempData.Add("message", "Product was successfully added");
+                TempData.Add("message", Messages.ProductAdded);
                 return RedirectToAction("Add");
             }
-            TempData.Add("message", "Validation Error");
+            TempData.Add("message", Messages.ProductAddedError);
             return RedirectToAction("Add");//buraya return view(); dersek add viewini açmaya çalışacak
             //Böyle olunca category select listi dolu gelemeyecek o yüzden exception vericek 
             //category dolu gelmesi lazım o yüzden hata alırız.
+
         }
 
 
@@ -77,7 +79,7 @@ namespace StoreSystem.UI.Controllers
             if (ModelState.IsValid)
             {
                 _productService.Update(product);
-                TempData.Add("message", "Product was successfully updated");
+                TempData.Add("message", Messages.ProductUpdated);
             }
 
             return RedirectToAction("Update");
@@ -102,11 +104,6 @@ namespace StoreSystem.UI.Controllers
 
         }
 
-        //public ActionResult deneme()
-        //{
-        //     var resultmessage= _productService.Add2(new Product{CategoryId = 2});
-        //     return Ok(resultmessage);
-        //}
 
     }
 }

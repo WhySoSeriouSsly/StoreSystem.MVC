@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StoreSystem.Business.Abstract;
 using StoreSystem.Business.Concrete;
+using StoreSystem.Business.Containers.MicrosoftIoC;
 using StoreSystem.Business.ValidationRules.FluentValidation;
 using StoreSystem.DataAcccesLayer.Abstract;
 using StoreSystem.DataAcccesLayer.Concrete.EntityFramework;
@@ -39,12 +40,7 @@ namespace StoreSystem.UI
                 fv.RegisterValidatorsFromAssemblyContaining<Startup>();
             });
             //dependencies
-            services.AddTransient<IValidator<Product>, ProductValidator>();
-            services.AddScoped<IProductService, ProductManager>();
-            services.AddScoped<IProductDal, EfProductDal>();//
-            services.AddScoped<ICategoryService, CategoryManager>();
-            services.AddScoped<ICategoryDal, EfCategoryDal>();
-
+            services.AddDependencies();
 
 
         }
