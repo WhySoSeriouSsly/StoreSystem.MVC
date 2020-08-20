@@ -34,7 +34,6 @@ namespace StoreSystem.UI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //S.O.L.Ý.D 
             services.AddControllersWithViews().AddFluentValidation(fv =>
             {
                 fv.RegisterValidatorsFromAssemblyContaining<Startup>();
@@ -42,8 +41,7 @@ namespace StoreSystem.UI
             //dependencies
             services.AddDependencies();
 
-
-        }
+            }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -64,11 +62,11 @@ namespace StoreSystem.UI
             app.UseRouting();
 
 
-                                    //giriþ iþlemleri
-            app.UseAuthorization();//yetkilendirme
+                                    
+            app.UseAuthorization();
             app.UseAuthentication();
 
-            app.UseEndpoints(endpoints =>//default rota
+            app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",

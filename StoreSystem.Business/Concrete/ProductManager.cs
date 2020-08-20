@@ -58,7 +58,7 @@ namespace StoreSystem.Business.Concrete
         }
         public List<Product> GetByName(string productName)
         {
-            return _productDal.GetList(p => p.ProductName == productName || productName == null);
+            return _productDal.GetList(p => p.ProductName.Contains(productName) || productName == null);
         }
 
 

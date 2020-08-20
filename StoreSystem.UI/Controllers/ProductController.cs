@@ -24,7 +24,7 @@ namespace StoreSystem.UI.Controllers
             _categoryService = categoryService;
         }
         [HttpGet]
-        public IActionResult List(string? productName)
+        public IActionResult List(string productName)
         {
             var productListViewModel = new ProductListViewModel
             {
