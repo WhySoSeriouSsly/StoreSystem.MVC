@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore.Query;
 using StoreSystem.Business.Abstract;
 using StoreSystem.Entities.Concrete;
 using StoreSystem.UI.Models;
+using StoreSystem.UI.Utilities.Messages;
 
 namespace StoreSystem.UI.Controllers
 {
@@ -46,9 +47,12 @@ namespace StoreSystem.UI.Controllers
 
             var result = _productService.Add(product);
 
-            TempData.Add("message", "Product was successfully added");
-
-
+            if (result==Messages.SuccessValidation)
+            {
+                TempData.Add("message", "Product was successfully added");
+                return RedirectToAction("Add");
+            }
+            TempData.Add("message", "Validation Error");
             return RedirectToAction("Add");//buraya return view(); dersek add viewini açmaya çalışacak
             //Böyle olunca category select listi dolu gelemeyecek o yüzden exception vericek 
             //category dolu gelmesi lazım o yüzden hata alırız.
