@@ -10,9 +10,9 @@ namespace StoreSystem.Business.Abstract
         List<Product> GetAll(string productName);
         List<Product> GetByCategory(int categoryId);
         void Add(Product product);
-
         void Delete(int productId);
-        string Update(Product product);
+        void Update(Product product);
+        void TransactionalOperations(Product product);
         Product GetById(int productId);
          List<Product> GetByName(string productName);
     }

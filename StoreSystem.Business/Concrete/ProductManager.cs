@@ -16,27 +16,17 @@ namespace StoreSystem.Business.Concrete
 {
     public class ProductManager : IProductService
     {
-        private readonly IValidator<Product> _productValidator;
+        //private readonly IValidator<Product> _productValidator;
         private IProductDal _productDal;
         public ProductManager(IProductDal productDal, IValidator<Product> productValidator)
         {
             _productDal = productDal;  //NHİBERNATE ,DAPPER VAR 
-            _productValidator = productValidator;
         }
 
         [ValidationAspect(typeof(ProductValidator))]
         public void Add(Product product)
         {
-            //var validateResult = _productValidator.Validate(product);
-            //if (validateResult.IsValid)
-            //{
-
-                _productDal.Add(product);
-            //}
-
-            //return validateResult.IsValid ? "Success" : validateResult.Errors.First().ErrorMessage;
-            //;
-            // throw new ValidationException(validateResult.Errors);
+            _productDal.Add(product);
 
         }
 
@@ -66,6 +56,12 @@ namespace StoreSystem.Business.Concrete
             return _productDal.GetList(filter: p => p.CategoryId == categoryId || categoryId == 0);
         }
 
+        public void TransactionalOperations(Product product)
+        {
+            _productDal.Add(product);
+            _productDal.Update(product);
+        }
+
         public Product GetById(int productId)
         {
             return _productDal.Get(p => p.ProductId == productId);
@@ -76,14 +72,21 @@ namespace StoreSystem.Business.Concrete
         }
 
 
-        public string Update(Product product)
+        [ValidationAspect(typeof(ProductValidator))]
+        public void Update(Product product)
         {
-            var validateResult = _productValidator.Validate(product);
-            if (validateResult.IsValid)
-            {
                 _productDal.Update(product);
-            }
-            return validateResult.IsValid ? "Success" : validateResult.Errors.First().ErrorMessage;
         }
+
+        //[ValidationAspect(typeof(ProductValidator))]
+        //public string Update(Product product)
+        //{
+        //    var validateResult = _productValidator.Validate(product);
+        //    if (validateResult.IsValid)
+        //    {
+        //        _productDal.Update(product);
+        //    }
+        //    return validateResult.IsValid ? "Success" : validateResult.Errors.First().ErrorMessage;
+        //}
     }
 }

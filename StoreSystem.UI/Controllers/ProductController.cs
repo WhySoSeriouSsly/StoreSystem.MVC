@@ -95,12 +95,8 @@ namespace StoreSystem.UI.Controllers
         [HttpPost]
         public ActionResult Update(Product product)
         {
-            if (ModelState.IsValid)
-            {
-                _productService.Update(product);
-                TempData.Add("message", Messages.ProductUpdated);
-            }
-
+            _productService.Update(product); 
+            TempData.Add("message", Messages.ProductUpdated);
             return RedirectToAction("Update");
         }
 
@@ -113,8 +109,6 @@ namespace StoreSystem.UI.Controllers
 
         public ActionResult Search(string? productName)
         {
-
-
             var productListViewModel = new ProductListViewModel
             {
                 Products = _productService.GetByName(productName)
