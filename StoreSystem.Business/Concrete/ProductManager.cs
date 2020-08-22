@@ -6,6 +6,7 @@ using FluentValidation;
 using StoreSystem.Business.Abstract;
 using StoreSystem.Business.ValidationRules;
 using StoreSystem.Business.ValidationRules.FluentValidation;
+using StoreSystem.Core.Aspects.Autofac.Transaction;
 using StoreSystem.Core.Aspects.Autofac.Validation;
 using StoreSystem.Core.CrossCuttingConcerns.Validation;
 using StoreSystem.DataAcccesLayer.Abstract;
@@ -55,7 +56,7 @@ namespace StoreSystem.Business.Concrete
         {
             return _productDal.GetList(filter: p => p.CategoryId == categoryId || categoryId == 0);
         }
-
+         [TransactionScopeAspects]
         public void TransactionalOperations(Product product)
         {
             _productDal.Add(product);

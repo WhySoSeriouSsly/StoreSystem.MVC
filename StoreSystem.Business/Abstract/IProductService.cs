@@ -14,6 +14,6 @@ namespace StoreSystem.Business.Abstract
         void Update(Product product);
         void TransactionalOperations(Product product);
         Product GetById(int productId);
-         List<Product> GetByName(string productName);
+        List<Product> GetByName(string productName);
     }
 }

@@ -13,8 +13,6 @@ namespace StoreSystem.Business.ValidationRules.FluentValidation
             RuleFor(x => x.ProductName).NotNull().WithMessage("Product Name Bos Gecilemez");
             RuleFor(x => x.ProductName).Length(4, 20).WithMessage("4 ve 20 karakter uzunluğunda olmalı.");
             RuleFor(p => p.UnitPrice).GreaterThanOrEqualTo(1).WithMessage("Unit Price 1 den büyük olmalı");
-            RuleFor(x => x.UnitsInStock).NotNull().WithMessage("UnitsInStock Bos Gecilemez");
-
         }
     }
     

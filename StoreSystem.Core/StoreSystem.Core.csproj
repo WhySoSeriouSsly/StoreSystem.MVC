@@ -8,7 +8,6 @@
     <Folder Include="Aspects\Autofac\Caching\" />
     <Folder Include="Aspects\Autofac\Exception\" />
     <Folder Include="Aspects\Autofac\Logging\" />
-    <Folder Include="Aspects\Autofac\Transaction\" />
     <Folder Include="Aspects\Autofac\Performance\" />
     <Folder Include="Aspects\Postsharp\Caching\" />
     <Folder Include="Aspects\Postsharp\Exception\" />

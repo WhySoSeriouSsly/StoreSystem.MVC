@@ -117,9 +117,15 @@ namespace StoreSystem.UI.Controllers
 
         }
 
-        public IActionResult Index()
+        public IActionResult Transaction(Product product)
         {
-            return View();
+            _productService.TransactionalOperations(new Product
+            {
+                ProductName = "Melike",
+                CategoryId = 2,
+                UnitPrice = 5
+            });
+            return Ok();
         }
 
     }
