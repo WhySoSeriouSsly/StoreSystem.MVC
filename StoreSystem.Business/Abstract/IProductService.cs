@@ -9,7 +9,7 @@ namespace StoreSystem.Business.Abstract
     {
         List<Product> GetAll(string productName);
         List<Product> GetByCategory(int categoryId);
-        string Add(Product product);
+        void Add(Product product);
 
         void Delete(int productId);
         string Update(Product product);

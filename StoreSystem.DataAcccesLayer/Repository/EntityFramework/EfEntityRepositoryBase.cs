@@ -61,5 +61,7 @@ namespace StoreSystem.DataAcccesLayer.Repository.EntityFramework
                 context.SaveChanges();
             }
         }
+
+       
     }
 }

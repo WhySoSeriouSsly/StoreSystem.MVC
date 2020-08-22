@@ -6,6 +6,8 @@ using FluentValidation;
 using StoreSystem.Business.Abstract;
 using StoreSystem.Business.ValidationRules;
 using StoreSystem.Business.ValidationRules.FluentValidation;
+using StoreSystem.Core.Aspects.Autofac.Validation;
+using StoreSystem.Core.CrossCuttingConcerns.Validation;
 using StoreSystem.DataAcccesLayer.Abstract;
 using StoreSystem.DataAcccesLayer.Concrete.EntityFramework;
 using StoreSystem.Entities.Concrete;
@@ -18,23 +20,35 @@ namespace StoreSystem.Business.Concrete
         private IProductDal _productDal;
         public ProductManager(IProductDal productDal, IValidator<Product> productValidator)
         {
-            _productDal =productDal;  //NHİBERNATE ,DAPPER VAR 
+            _productDal = productDal;  //NHİBERNATE ,DAPPER VAR 
             _productValidator = productValidator;
         }
 
-        public string Add(Product product)
+        [ValidationAspect(typeof(ProductValidator))]
+        public void Add(Product product)
         {
-            var validateResult = _productValidator.Validate(product);
-            if (validateResult.IsValid)
-            {
-                _productDal.Add(product);
-            }
+            //var validateResult = _productValidator.Validate(product);
+            //if (validateResult.IsValid)
+            //{
 
-            return validateResult.IsValid ? "Success" : validateResult.Errors.First().ErrorMessage;
-            ;
+                _productDal.Add(product);
+            //}
+
+            //return validateResult.IsValid ? "Success" : validateResult.Errors.First().ErrorMessage;
+            //;
             // throw new ValidationException(validateResult.Errors);
 
         }
+
+        //public void Add(Product product)
+        //{
+
+        //    ValidationTool.Validate(new ProductValidator(), product);
+        //    _productDal.Add(product);
+        //    ;
+        //    // throw new ValidationException(validateResult.Errors);
+
+        //}
 
 
         public void Delete(int productId)
@@ -54,7 +68,7 @@ namespace StoreSystem.Business.Concrete
 
         public Product GetById(int productId)
         {
-            return _productDal.Get(p => p.ProductId == productId); 
+            return _productDal.Get(p => p.ProductId == productId);
         }
         public List<Product> GetByName(string productName)
         {

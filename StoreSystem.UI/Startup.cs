@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using FluentValidation;
-using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,13 +33,10 @@ namespace StoreSystem.UI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews().AddFluentValidation(fv =>
-            {
-                fv.RegisterValidatorsFromAssemblyContaining<Startup>();
-            });
+            services.AddControllersWithViews();
             //dependencies
-            services.AddDependencies();
-
+         //   services.AddDependencies();
+            
             }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

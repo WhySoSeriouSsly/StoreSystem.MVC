@@ -24,5 +24,6 @@ namespace StoreSystem.UI.Controllers
             };
             return View(model);
         }
+       
     }
 }

@@ -1,12 +1,19 @@
 ﻿#nullable enable
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
+using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 using StoreSystem.Business.Abstract;
 using StoreSystem.Entities.Concrete;
 using StoreSystem.UI.Models;
@@ -46,19 +53,31 @@ namespace StoreSystem.UI.Controllers
         public ActionResult Add(Product product)
         {
 
-            var result = _productService.Add(product);
-
-            if (result == Messages.Success)
-            {
-                TempData.Add("message", Messages.ProductAdded);
-                return RedirectToAction("Add");
-            }
-            TempData.Add("message", Messages.ProductAddedError);
+            _productService.Add(product);
+            TempData.Add("message", Messages.ProductAdded);
             return RedirectToAction("Add");//buraya return view(); dersek add viewini açmaya çalışacak
             //Böyle olunca category select listi dolu gelemeyecek o yüzden exception vericek 
             //category dolu gelmesi lazım o yüzden hata alırız.
-
         }
+
+        public ActionResult add2()
+        {
+            _productService.Add(new Product{ProductName = "NAZIM",CategoryId = 2});
+            return Ok();
+        }
+
+        //[HttpPost]
+        //public ActionResult Add(Product product)
+        //{
+
+        //    _productService.Add(product);
+        //    TempData.Add("message", Messages.ProductAdded);
+        //    return RedirectToAction("Add");
+        //    //buraya return view(); dersek add viewini açmaya çalışacak
+        //    //Böyle olunca category select listi dolu gelemeyecek o yüzden exception vericek 
+        //    //category dolu gelmesi lazım o yüzden hata alırız.
+
+        //}
 
 
         public ActionResult Update(int productId)
@@ -104,6 +123,10 @@ namespace StoreSystem.UI.Controllers
 
         }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
 
     }
 }
